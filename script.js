@@ -3,10 +3,13 @@ $(function(){
     $(".btn").click(function (){
 
         let emailId = $(".emailId").val()
+        console.log(emailId)
           
         if(validateEmail(emailId)){
-              $.post('/url', {emailId}, function(data,error){
-                       console.log(data)
+              $.post('/server.php', {emailId}, function(data,error){
+                       if(data.users.insertId){
+                           alert('successfully added')
+                       }
               })
         }  
     })

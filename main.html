@@ -1,3 +1,41 @@
+ <!-- <?php
+
+
+$connection = mysqli_connect('localhost', 'root', '', 'user');
+    if (!$connection) {
+        die("We are not connected!");
+    } 
+
+
+  if(isset($_POST['submit'])) {
+      global $connection;
+      $username = $_POST['username'];
+      
+
+     
+      $newquery = "SELECT * FROM user WHERE username = '$username'";
+      $newresult = mysqli_query($connection, $newquery);
+
+      if(newresult)
+        {echo "no user found";}
+      else{
+        echo "user found";}
+
+
+      $query = "INSERT INTO user(username) ";
+      $query .= "VALUES ('$username')";
+      $result = mysqli_query($connection, $query);
+      if (!$result) {
+          die("Query failed" . mysqli_error($connection));
+      } else {
+
+      }
+      
+
+    
+  }
+?>  -->
+
 <!DOCTYPE html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -28,6 +66,7 @@
   crossorigin="anonymous"></script>
 <script src="semantic/dist/semantic.min.js"></script>
 <script src="script.js" ></script>
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
      <style type="text/css">
@@ -102,16 +141,17 @@
     
 </head>
 <body>
-
     <div class="footer">
-            <div class="ui input focus" id="f1">
-                    <input type="text" placeholder="submit your email" class="emailId">       
-            </div>
-            <br /> <br /> 
-           <div class="btn">
-                <button class="ui primary button" style="width : 130px"> Submit </button> 
-           </div>     
+            
+             <div class="ui input focus" id="f1">
+                            <input type="text"  placeholder="submit your email" id="emailId">       
+                    </div>
+                <div class="btn">
+                        <button class="ui primary button" style="width : 130px" onClick='ajaxFunction()'> Submit </button> 
+                </div>  
+               
     </div>
+  
 
 <script type="text/javascript" src="http://ercess.com/live/js/jquery2.1.1.js"></script>
 <script type="text/javascript" src="http://ercess.com/live/js/bootstrap.min.js"></script>
@@ -119,4 +159,32 @@
 <script type="text/javascript" src="http://ercess.com/live/js/owl.carousel.min.js"></script>
 <script type="text/javascript" src="http://ercess.com/live/js/script.js"></script>
 <script type="text/javascript" src="http://ercess.com/live/js/typeahead.bundle.min.js"></script>
+<script language = "javascript" type = "text/javascript">
+         
+            //Browser Support Code
+            function ajaxFunction(){
+               var ajaxRequest;  // The variable that makes Ajax possible!
+               
+               try {
+                  // Opera 8.0+, Firefox, Safari
+                  ajaxRequest = new XMLHttpRequest();
+               }catch (e){
+                        // Something went wrong
+                        alert("Your browser broke!");
+                        return false;
+                }
+            
+               
+               // Now get the value from user and pass it to
+               // server script.
+					
+               var emailId = document.getElementById('emailId').value;
+               var queryString = "?emailId=" + emailId ;
+        
+               ajaxRequest.open("GET", "ajax-example.php" + queryString, true);
+               ajaxRequest.send(null); 
+            }
+      
+      </script>
+
 </body>
